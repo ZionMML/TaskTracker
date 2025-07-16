@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using TaskTrackerAPI.Data;
 using TaskTrackerAPI.Models;
 
+namespace TaskTrackerAPI.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class TasksController(TaskDbContext context) : ControllerBase
@@ -12,7 +14,8 @@ public class TasksController(TaskDbContext context) : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TaskItem>>> GetTasks()
     {
-        return await _context.Tasks.ToListAsync();
+        var tasks = await _context.Tasks.ToListAsync();
+        return Ok(tasks);
     }
 
     [HttpGet("{id}")]
